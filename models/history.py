@@ -13,7 +13,6 @@ class History(object):
     def addRecord(self, key, right):
         if key == "":
             return
-        key = str(key).lstrip("*")
         if right not in [WORD_RIGHT_YES, WORD_RIGHT_NO]:
             return
         sql = "insert into {}(key, right) values(?, ?)".format(self.tablename)
