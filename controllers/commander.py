@@ -30,15 +30,14 @@ class Commander(object):
         if maxIndex < 1:
             print("master vocabulary is empty.")
             return
-        index = randint(0, maxIndex)
+        index, keywords = randint(0, maxIndex), []
         while True:
             key, desc = rows[index][1], rows[index][2]
             # change `index` to review worng history words
-            if index % WRONG_WORDS_REVIEW_FREQUENCY == 0:
+            if index % WRONG_WORDS_REVIEW_FREQUENCY == 0 and COMMANDS_REPEAT not in keywords:
                 wrongRecords = self.history.findWrongWords()
                 randomChoice = choice(wrongRecords)
-                key, desc = randomChoice[1], randomChoice[2]
-                print("comes from wrong history.")
+                key, desc = "*" + str(randomChoice[1]), randomChoice[2]
             print(RECITE_PRINT_FORMAT.format(counter, key))
             # parse input of user, then action them
             line = str(input(">"))
