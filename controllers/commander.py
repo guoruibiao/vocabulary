@@ -55,6 +55,7 @@ class Commander(object):
                 if keyword == COMMANDS_SHOW:
                     record = self.words.find(key)
                     print(DETAILS_PRINT_FORMAT_IN_DATABASE.format(record[0], record[2], record[3]))
+                    keywords.append(COMMANDS_REPEAT)
 
                 if keyword.startswith(COMMANDS_FIND):
                     key = keyword.lstrip(COMMANDS_FIND)
@@ -85,6 +86,7 @@ class Commander(object):
                 continue
             if COMMANDS_HELP in keywords:
                 print(RECITE_HELP_INFORMATION)
+                keywords.append(COMMANDS_REPEAT)
                 continue
 
             # update next round
