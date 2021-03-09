@@ -27,7 +27,7 @@ class History(object):
             start, end = "-{}".format(day), "+{}".format(day + 1)
         sql = """
                 select
-                    count(*), mv.key, mv.desc
+                    count(*) as cnt, mv.key, mv.desc
                 from {} as rh
                 join {} as mv
                 on 
@@ -38,6 +38,7 @@ class History(object):
                     rh.right=0 
                 group by
                      mv.key
+                order by cnt desc
                 """.format(self.tablename, self.wordstable, start, end)
         # print(sql)
         rows = self.dbhelper.fetch(sql, ())
