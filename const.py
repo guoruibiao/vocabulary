@@ -29,7 +29,8 @@ COMMANDS OF RECITING VOCABULARIES
 `\33[1m\33[33mrepeat\33[0m\33[0m`  : repeat current word and stay in this round.
 `\33[1m\33[33mshow  \33[0m\33[0m`  : show details in database.
 `\33[1m\33[33mfind=  \33[0m\33[0m` : find=xxx, get the meaning in database with key=xxx
-`\33[1m\33[33mstatic=N\33[0m\33[0m`: static=N, show the statics of N days ago. N=0 means current day.
+`\33[1m\33[33mstatic=N\33[0m\33[0m`: static=N, show the statics of N days ago. N=0 means current day. N <= 0
+`\33[1m\33[33mwrong=N \33[0m\33[0m`: wrong=N, show the wrong words of N days ago. N=0 means current day. N <= Zero
 `\33[1m\33[33mquit\33[0m\33[0m`    : quit this recite round.
 `\33[1m\33[36mhelp\33[0m\33[0m`    : tip me with keywords.
 
