@@ -39,11 +39,17 @@ class Commander(object):
                 randomChoice = choice(wrongRecords)
                 key, desc = "*" + str(randomChoice[1]), randomChoice[2]
             print(RECITE_PRINT_FORMAT.format(counter, key))
+
             # lstrip symbol "*" in order to aviod saiving to database.
             key = str(key).lstrip("*")
             # parse input of user, then action them
             line = str(input(">"))
             keywords = [str(item).lower() for item in line.split(" ")]
+
+            # judge whether there has 'Enter' ot nor
+            if len(keywords) == 1 and keywords[0] == '':
+                keywords[0] = COMMANDS_REPEAT
+
             # handle keywords for sub commands.
             for keyword in keywords:
                 if keyword == COMMANDS_SAY:
