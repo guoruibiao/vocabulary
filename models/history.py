@@ -18,24 +18,45 @@ class History(object):
         sql = "insert into {}(key, right) values(?, ?)".format(self.tablename)
         self.dbhelper.execute(sql, (key, right))
 
-    def findWrongWords(self):
+    def findWrongWords(self, day=0):
+        if day > 0:
+            print("wrong=N, N can not be great than Zero")
+            return
+        start, end = "{}".format(day), "{}".format(day + 1)
+        if day == 0:
+            start, end = "-{}".format(day), "+{}".format(day + 1)
         sql = """
                 select
-                    1, mv.key, mv.desc
+                    count(*), mv.key, mv.desc
                 from {} as rh
                 join {} as mv
                 on 
                     mv.key=rh.key
                     and
-                    rh.daytime>=datetime('now','start of day','-0 day') and rh.daytime<datetime('now','start of day','+1 day') 
+                    rh.daytime>=datetime('now','start of day','{} day') and rh.daytime<datetime('now','start of day','{} day')
+                    and
+                    rh.right=0 
                 group by
                      mv.key
-                """.format(self.tablename, self.wordstable)
+                """.format(self.tablename, self.wordstable, start, end)
+        # print(sql)
         rows = self.dbhelper.fetch(sql, ())
-        if len(rows) <= 0:
+        if rows is not None and len(rows) <= 0:
             print("no recite history.")
             return
         return rows
+
+    def outputWrongWords(self, day=0):
+        rows = self.findWrongWords(day)
+        if rows is None or len(rows) <= 0:
+            print("no wrong words history")
+            return
+        table = pt.PrettyTable(["Count", "Word", "Description"])
+        for row in rows:
+            if len(row) != 3:
+                continue
+            table.add_row([row[0], row[1], row[2]])
+        print(table)
 
 
 
@@ -49,13 +70,13 @@ class History(object):
             start, end = "-{}".format(day), "+{}".format(day+1)
         sql = """
         select
-            mv.key, mv.desc, count(*) as cnt
+            mv.key, mv.desc, count(rh.right) as cnt
         from {} as rh
         join {} as mv
         on 
             mv.key=rh.key
             and
-            rh.daytime>=datetime('now','start of day','{} day') and rh.daytime<datetime('now','start of day','{} day') 
+            rh.daytime>=datetime('now','start of day','{} day') and rh.daytime<datetime('now','start of day','{} day')
         group by
              mv.key
         order by cnt desc
