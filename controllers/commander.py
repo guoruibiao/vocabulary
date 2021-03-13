@@ -66,7 +66,9 @@ class Commander(object):
                     keywords.append(COMMANDS_REPEAT)
 
                 if keyword.startswith(COMMANDS_FIND):
-                    key = keyword.lstrip(COMMANDS_FIND)
+                    # cannot use method of `lstrip` or there will be a bug.
+                    # key = keyword.lstrip(COMMANDS_FIND)
+                    key = str(keyword).split("=")[1]
                     meaning = self.words.find(key)
                     if meaning is not None and len(meaning) == 4:
                         desc = meaning[2]
