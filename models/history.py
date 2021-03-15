@@ -1,7 +1,8 @@
 #!/usr/bin/python3
+import time
+import prettytable as pt
 from utils.db import Sqlite3
 from const import *
-import prettytable as pt
 
 class History(object):
 
@@ -58,6 +59,21 @@ class History(object):
                 continue
             table.add_row([row[0], row[1], row[2]])
         print(table)
+
+    def exportWrongWords(self, day=0):
+        rows = self.findWrongWords(day)
+        if rows is None or len(rows) <= 0:
+            print("no wrong words history to export")
+            return
+        # writing wrong words to CSV file.
+        lines = ["Count,Word,Description\n"]
+        for row in rows:
+            lines.append("{},{},{}\n".format(row[0], row[1], row[2]))
+        filename = "{}.csv".format(time.strftime("%Y-%m-%d %H", time.localtime()))
+        with open(filename, "w") as f:
+            f.writelines(lines)
+            f.close()
+        print("export wrong words to file: {}".format(filename))
 
 
 

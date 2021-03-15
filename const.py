@@ -32,6 +32,7 @@ COMMANDS OF RECITING VOCABULARIES
 `\33[1m\33[33mstatic=N\33[0m\33[0m`: static=N, show the statics of N days ago. N=0 means current day. N <= 0
 `\33[1m\33[33mwrong=N \33[0m\33[0m`: wrong=N, show the wrong words of N days ago. N=0 means current day. N <= Zero
 `\33[1m\33[33mquit\33[0m\33[0m`    : quit this recite round.
+`\33[1m\33[33mexport=N\33[0m\33[0m`: export=N, for exporting wrong words of N days ago.
 `\33[1m\33[36mhelp\33[0m\33[0m`    : tip me with keywords.
 
 example:
@@ -49,6 +50,7 @@ COMMANDS_SHOW   = "show"
 COMMANDS_FIND   = "find="
 COMMANDS_STATIC = "static="
 COMMANDS_WRONG  = "wrong="
+COMMANDS_EXPORT = "export="
 COMMANDS_YES    = "yes"
 COMMANDS_NO     = "no"
 COMMANDS_QUIT   = "quit"

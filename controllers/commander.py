@@ -87,6 +87,11 @@ class Commander(object):
                     self.history.outputWrongWords(int(day))
                     keywords.append(COMMANDS_REPEAT)
 
+                if keyword.startswith(COMMANDS_EXPORT):
+                    day = int(keyword.lstrip(COMMANDS_EXPORT))
+                    self.history.exportWrongWords(day)
+                    keywords.append(COMMANDS_REPEAT)
+
                 if keyword == COMMANDS_YES:
                     self.history.addRecord(key, WORD_RIGHT_YES)
 
