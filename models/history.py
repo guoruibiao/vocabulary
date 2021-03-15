@@ -69,7 +69,7 @@ class History(object):
         lines = ["Count,Word,Description\n"]
         for row in rows:
             lines.append("{},{},{}\n".format(row[0], row[1], row[2]))
-        filename = "{}.csv".format(time.strftime("%Y-%m-%d %H", time.localtime()))
+        filename = "./data/wrong_{}.csv".format(time.strftime("%Y-%m-%d %H", time.localtime()))
         with open(filename, "w") as f:
             f.writelines(lines)
             f.close()
