@@ -45,7 +45,7 @@ class History(object):
         rows = self.dbhelper.fetch(sql, ())
         if rows is not None and len(rows) <= 0:
             print("no recite history.")
-            return
+            return []
         return rows
 
     def outputWrongWords(self, day=0):
