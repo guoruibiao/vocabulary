@@ -32,17 +32,18 @@ class Commander(object):
             return
         index, keywords = randint(0, maxIndex), []
         while True:
+            key, desc = rows[index][1], rows[index][2]
             # change `index` to review worng history words
             if index % WRONG_WORDS_REVIEW_FREQUENCY == 0 and COMMANDS_REPEAT not in keywords:
                 wrongRecords = self.history.findWrongWords()
-                randomChoice = choice(wrongRecords)
-                key, desc = "*" + str(randomChoice[1]), randomChoice[2]
+                if len(wrongRecords) > 0:
+                    randomChoice = choice(wrongRecords)
+                    key, desc = "*" + str(randomChoice[1]), randomChoice[2]
             elif COMMANDS_REPEAT in keywords:
                 # bugfix for overridnge by method of `COMMANDS_REPEAT`
                 # but there also have the probelm :-(
                 pass
-            else:
-                key, desc = rows[index][1], rows[index][2]
+
 
             print(RECITE_PRINT_FORMAT.format(counter, key))
 
